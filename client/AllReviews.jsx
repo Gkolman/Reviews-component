@@ -2,7 +2,6 @@ import React from 'react'
 import HelpfullButton from './HelpfulButton.jsx'
 var AllReviews = (props) => {
 
-  console.log('data -> ', window.location.href)
 
 
   // querry database and look for product id within db

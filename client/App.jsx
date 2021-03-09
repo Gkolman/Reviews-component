@@ -7,15 +7,20 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rating: 4
+      currentUrl: window.location.href
     }
   }
+
+
+
 
 
   // on componentWillMount make a call to get all dat afrom db
   // create route path for every index in the db
   // render routes in
   // componentWillMount() {
+  //   console.log('data in will mount-> ', window.location.href)
+
   //   $.ajax({
   //     url: window.location.href,
   //     type: "POST",
@@ -24,7 +29,17 @@ class App extends React.Component {
   //     error: (err) => console.log('err from request -> ', err)
   //   })
   // }
+  componentWillMount() {
+    console.log('state -> ', this.state)
 
+    // check state for id
+
+    // request to the database throught the server with id
+
+
+
+
+  }
 
   render() {
 

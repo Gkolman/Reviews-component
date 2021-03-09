@@ -10,19 +10,22 @@ app.get('/',(req,res) => {
   res.send('working')
 })
 
-app.use('/', function (req, res, next) {
-  // console.dir(req.originalUrl) // '/admin/new?sort=desc'
-  // console.dir(req.baseUrl) // '/admin'
-  // console.dir(req.path) // '/new'
-  // console.dir(req.route) // '/new'
-  // // sned current url to client somehow
-  next()
-})
+// app.use('/', function (req, res, next) {
+//   console.dir(req.originalUrl) // '/admin/new?sort=desc'
+//   console.dir(req.baseUrl) // '/admin'
+//   console.dir(req.path) // '/new'
+//   console.dir(req.route) // '/new'
+//   // sned current url to client somehow
+//   // res.send(req.path.slice(1))
+//   res.send(req.path.slice(1))
+//   // next()
+// })
 
 
-app.get('/', function (req, res) {
+app.get('/:id', function (req, res) {
   console.log('path -> ', req.path)
-  res.send(req.path.slice(1))
+  console.log('id ->', req.params.id)
+  res.sendFile(__dirname + '/client/dist/index.html')
 })
 
 app.listen(port, () => { console.log(`app is listening on port ${port}`)})

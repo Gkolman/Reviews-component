@@ -36,9 +36,7 @@ var createNewProduct = (rating,allReviews) => {
 })
 .catch(error => console.log('error -> ', error))
 }
-
-var getReviewsForProductId = (id) => {reviews.find({custom_id: id})}
-
+var getReviewsForProductId = (id) => {return reviews.find({custom_id: id})}
 var addReviewToProductId = (review,id) => {
   getReviewsForProductId(id)
   .then(data => {
@@ -70,12 +68,13 @@ var seeding = (size) => {
   }
 }
 
+//
 // reviews.find()
 // .then(data => console.log('data in db ->', data))
 // .catch(err => console.log('err  ->', err))
 
 module.exports = {
   createNewProduct: createNewProduct,
-  getLastReview: getLastReview
+  getReviewsForProductId: getReviewsForProductId
 
 }

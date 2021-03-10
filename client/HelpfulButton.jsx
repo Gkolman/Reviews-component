@@ -1,6 +1,6 @@
 import React from 'react';
 
-var HelpfulButton =  () => {
+var HelpfulButton =  (props) => {
   return (
     <div>
         <button> Helpful </button>

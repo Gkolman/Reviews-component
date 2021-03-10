@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AllReviews from './AllReviews.jsx'
-import ClientRoutes from './ClientRoutes.jsx'
 
 class App extends React.Component {
   constructor(props) {

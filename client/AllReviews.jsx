@@ -6,15 +6,16 @@ var AllReviews = (props) => {
     return (
       <div key={i}>
         <h3> Rating: {review.rating} </h3>
+        <h4> date </h4>
         <h4> Review: {review.review}</h4>
         <h3> Name : {review.author}</h3>
         <HelpfullButton/>
+        <hr/>
       </div>
     )})
   } else {
     var reviews = <div> loading </div>
   }
-  // iterate through all reviews and return a template of how each review should look
   return (
       <div>
        <h2> Product Rating: {props.reviews.product_overall_rating} </h2>

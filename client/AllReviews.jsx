@@ -17,9 +17,9 @@ var AllReviews = (props) => {
     var reviews = <div> loading </div>
   }
   return (
-      <div>
-       <h2> Product Rating: {props.reviews.product_overall_rating} </h2>
-        {reviews}
+      <div >
+       <h2 id="productRating" > Product Rating: {props.reviews.product_overall_rating} </h2>
+        <div id = "allReviews">{reviews}</div>
       </div>
     )
 }

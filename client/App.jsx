@@ -47,11 +47,7 @@ class App extends React.Component {
   }
 }
 
-var root = document.getElementById('root')
-var element = <h2>template</h2>
-
-ReactDOM.render(<App/>,root)
-
+export default App
 // create your template for each review here
 
 //

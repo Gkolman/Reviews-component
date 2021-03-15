@@ -39,7 +39,7 @@ class App extends React.Component {
 
   render() {
     return (
-    <div>
+    <div className ="main">
       <h2>Reviews </h2>
       <AllReviews reviews={this.state.currentProduct}/>
     </div>

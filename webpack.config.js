@@ -1,22 +1,36 @@
+var path = require('path')
 module.exports = {
-  entry: __dirname + '/client/index.jsx',
+  resolve: {
+    fallback: {
+      "zlib": false,
+      "querystring": false,
+      "buffer": false
+    },
+  },
+  entry: path.resolve(__dirname,'client', 'index.jsx'),
   output: {
-    path: __dirname + '/client/dist',
+    path: path.resolve(__dirname,'client' , 'dist', ),
     filename: 'bundle.js',
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
+        include: path.resolve(__dirname,'client'),
+        exclude: /node_modules/ && /dist/,
+        use: [{
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-react', '@babel/preset-env']
           }
-        }
+        }]
       },
-      { test: /\.css$/, loader: "style-loader!css-loader" },
+      {
+        test: /\.css$/i,
+        exclude: /node_modules/ && /dist/,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
+
 };

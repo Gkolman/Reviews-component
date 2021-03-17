@@ -1,0 +1,59 @@
+.main {
+  padding: 5px 75px 15px 75px;
+  /* //top right bottom left */
+}
+.star-icon {
+  color: #ddd;
+  font-size: 26px;
+  left: 15;
+  position: relative;
+}
+.star-icon.small {
+  color: #ddd;
+  font-size: 20px;
+  /* left: 15; */
+  display: inline-block;
+  line-height: 1em;
+  /* position: relative; */
+}
+.star-icon.full:before {
+  color: #FDE16D;
+  content: '\2605'; /* Full star in UTF8 */
+  position: absolute;
+  left: 0;
+  text-shadow: 0 0 2px rgba(0,0,0,0.7);
+}
+.star-icon.qaurter:before {
+  color: #FDE16D;
+  content: '\2605'; /* Full star in UTF8 */
+  position: absolute;
+  width: 40%;
+  overflow: hidden;
+  text-shadow: 0 0 2px rgba(0,0,0,0.7);
+}
+.star-icon.half:before {
+  color: #FDE16D;
+  content: '\2605'; /* Full star in UTF8 */
+  position: absolute;
+  width: 50%;
+  overflow: hidden;
+  text-shadow: 0 0 2px rgba(0,0,0,0.7);
+}
+.star-icon.threeQuarter:before {
+  color: #FDE16D;
+  content: '\2605'; /* Full star in UTF8 */
+  position: absolute;
+  width: 59%;
+  overflow: hidden;
+  text-shadow: 0 0 2px rgba(0,0,0,0.7);
+}
+.reviewButton {
+  margin-top: 25px;
+}
+.smallStars {
+  margin-top: 50px;
+}
+.reviewButton {
+  height:40px;
+  width:125px;
+}

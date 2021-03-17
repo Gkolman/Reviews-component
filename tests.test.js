@@ -2,7 +2,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Enzyme, { shallow, mount } from 'enzyme';
-import toJson from 'enzyme-to-json';
 import Adapter from 'enzyme-adapter-react-16';
 import {render, fireEvent, cleanup} from '@testing-library/react';
 import request from 'supertest'

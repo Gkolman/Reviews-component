@@ -45,6 +45,16 @@ var addReviewToProductId = (review,id) => {
     .then(data => console.log('working'))
   })
 }
+var randomNum = (min, max) => { return Math.floor(Math.random() * (max - min)) + min}
+var makeDate = () => {
+  var months = ['Dec', 'Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov']
+  var day = randomNum(1,30);
+  var month = months[randomNum(0,11)]
+  var year = randomNum(2017,2021)
+  if(day < 10) day = `0${day}`
+  return `${day} ${month} ${year}`
+}
+
 var seeding = (size) => {
   var i = 0
   console.time('while')
@@ -55,9 +65,12 @@ var seeding = (size) => {
     while (j < 9) {
       j++
       var review = {
-        author : faker.internet.userName(),
         rating: randomNum(5,10) / 2,
-        review: faker.lorem.paragraph()
+        date: makeDate(),
+        headLine: faker.lorem.sentence(),
+        review: faker.lorem.paragraph(),
+        author : faker.internet.userName(),
+        helpFull: randomNum(0,100)
       }
       ratings += review.rating
       product_reviews.push(review)

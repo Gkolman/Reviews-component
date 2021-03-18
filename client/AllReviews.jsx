@@ -1,30 +1,29 @@
 import { json } from 'body-parser'
 import React from 'react'
 import HelpfullButton from './HelpfulButton.jsx'
-import './style.css';
 import createStars from './StarTemplate.js'
-
 
 var AllReviews = (props) => {
 
+  console.log('props now look like -> ', props.reviews)
 
-  var rating = props.reviews.product_overall_rating
   if (props.reviews.product_reviews) {
+  var rating = props.reviews.product_overall_rating
   var reviews = props.reviews.product_reviews.map( (review,i) => {
     return (
       <div key={i}>
     {createStars(review.rating, true)}
-        <h4> date </h4>
-        <h4> headline </h4>
+        <h4> date {review.date} </h4>
+        <h4> headline {review.headLine} </h4>
         <h4> Review: {review.review}</h4>
         <h3> Name : {review.author}</h3>
-        <HelpfullButton/>
+        <button> <HelpfullButton/> {review.helpFull} </button>
         <hr/>
       </div>
     )})
   } else {
-    var reviews = <div> loading </div>
-    var rating
+    var reviews = <div> loading reviews </div>
+    var rating =  <div> loading rating </div>
 
   }
 

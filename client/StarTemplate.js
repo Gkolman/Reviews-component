@@ -232,7 +232,7 @@ var Stars = (rating, mini) => {
       <span className="starSet">
         <span className="star-icon full ">☆</span><span className="star-icon full ">☆</span>
         <span className="star-icon full ">☆</span><span className="star-icon half ">☆</span>
-        <span className="star-icon small">☆</span>
+        <span className="star-icon ">☆</span>
       </span>
       )
     } else if (rating <= 3.3 && rating >= 3.1) {
@@ -240,7 +240,7 @@ var Stars = (rating, mini) => {
       <span className="starSet">
         <span className="star-icon full ">☆</span><span className="star-icon full ">☆</span>
         <span className="star-icon full ">☆</span><span className="star-icon qaurter ">☆</span>
-        <span className="star-icon small">☆</span>
+        <span className="star-icon ">☆</span>
       </span>
       )
     } else if (rating === 3) {

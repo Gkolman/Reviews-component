@@ -7,7 +7,7 @@ module.exports = {
       "buffer": false
     },
   },
-  entry: path.resolve(__dirname,'client', 'index.jsx'),
+  entry:  path.resolve(__dirname,'client', 'index.jsx'),
   output: {
     path: path.resolve(__dirname,'client' , 'dist', ),
     filename: 'bundle.js',
@@ -32,5 +32,4 @@ module.exports = {
       },
     ],
   },
-
 };

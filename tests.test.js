@@ -23,7 +23,6 @@ describe("AllReviews", () => {
     product_reviews: [
  {author: "Adalberto.Langosh", rating: 3, review: "Sed laboriosam ut quis perspiciatis. Quos officiis…olores et ut eos. Itaque aut ut atque soluta non."},
  {author: "Candido.Schumm85", rating: 4.5, review: "Quidem alias id sapiente. Earum odit deserunt dolo…caecati. Voluptatibus qui alias delectus et odit."},
- {author: "Katrine75", rating: 4.5, review: "Ut rerum aspernatur. Quod porro et ipsum at sit. Reiciendis autem repellat adipisci."}
     ],
     product_overall_rating: 3.7
     }
@@ -31,14 +30,14 @@ describe("AllReviews", () => {
     ReactDOM.render(<AllReviews reviews = {reviews}/>, root)
  it("dynamically renders productRating through passed in props from App component", () => {
   var actualProductRating = root.querySelector("#productRating").textContent
-  var expectedProductRating = " Product Rating: 3.7 "
-  expect(actualProductRating).toEqual(expectedProductRating)
+  var expectedProductRating = " overall Rating: 3.7☆☆☆☆☆"
+  expect(expectedProductRating).toEqual(actualProductRating)
  });
 
  it ("dynamically renders all reviews through passed in props from App component", () => {
   var actualReviews = root.querySelector("#allReviews").textContent
   var expectedReviews = " Rating: 3  date  Review: Sed laboriosam ut quis perspiciatis. Quos officiis…olores et ut eos. Itaque aut ut atque soluta non. Name : Adalberto.Langosh Helpful  Rating: 4.5  date  Review: Quidem alias id sapiente. Earum odit deserunt dolo…caecati. Voluptatibus qui alias delectus et odit. Name : Candido.Schumm85 Helpful  Rating: 4.5  date  Review: Ut rerum aspernatur. Quod porro et ipsum at sit. Reiciendis autem repellat adipisci. Name : Katrine75 Helpful "
-  expect(actualReviews).toEqual(expectedReviews)
+  expect(expectedReviews).toEqual(actualReviews)
  })
 });
 

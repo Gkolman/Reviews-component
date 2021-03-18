@@ -26,6 +26,7 @@ class App extends React.Component {
                 //  console.log('data from request -> ', data)
                  if (data[0]) {
                    this.setState({currentProduct: data[0]})
+                  //  console.log('data -> ', data[0])
                  }
               },
               error: (err) => console.log('err from request -> ', err)

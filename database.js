@@ -6,7 +6,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('db connected!')
 });
-var customId = 0
 const reviewsSchema = new mongoose.Schema({
   product_overall_rating: Number,
   product_reviews: Array,
@@ -15,37 +14,20 @@ const reviewsSchema = new mongoose.Schema({
 
 const reviews = mongoose.model('reviews', reviewsSchema);
 var randomNum = (min, max) => { return Math.floor(Math.random() * (max - min)) + min }
-var getLastReview = () => {return reviews.find().sort({_id:-1}).limit(1);}
-var createNewProduct = (rating,allReviews) => {
-  getLastReview()
-  .then(data => {
-    var newId;
-    if (!data[0]) {
-      newId = 0
-    } else {
-      newId = data[0].custom_id + 1
-    }
-    const product = new reviews({
-      product_overall_rating: rating || 0,
-      product_reviews: allReviews || [],
-      custom_id: newId
-      });
-    product.save(function (err) {
-    if (err) return console.error(err);
-    })
-})
-.catch(error => console.log('error -> ', error))
-}
+
+
 var getReviewsForProductId = (id) => {return reviews.find({custom_id: id})}
-var addReviewToProductId = (review,id) => {
-  getReviewsForProductId(id)
-  .then(data => {
-    data[0].product_reviews.push(review)
-    data[0].save()
-    .then(data => console.log('working'))
-  })
-}
-var randomNum = (min, max) => { return Math.floor(Math.random() * (max - min)) + min}
+
+// could be used later to add reviews to a id number
+// var addReviewToProductId = (review,id) => {
+//   getReviewsForProductId(id)
+//   .then(data => {
+//     data[0].product_reviews.push(review)
+//     data[0].save()
+//     .then(data => console.log('working'))
+//   })
+// }
+
 var makeDate = () => {
   var months = ['Dec', 'Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov']
   var day = randomNum(1,30);
@@ -55,15 +37,21 @@ var makeDate = () => {
   return `${day} ${month} ${year}`
 }
 
-var seeding = (size) => {
-  var i = 0
-  console.time('while')
-  while (i < size) {
+var createNewProduct = async (rating,allReviews, id) => {
+  const product = new reviews({
+    product_overall_rating: rating || 0,
+    product_reviews: allReviews || [],
+    custom_id: id
+    });
+   await product.save(function (err) {if (err) return console.error(err)})
+}
+
+
+var addFakeProductToDb = (id) => {
     var product_reviews = []
     var ratings = 0
-    var j = 0
-    while (j < 9) {
-      j++
+    // i = number of reviews per product
+    for ( i = 0; i < 10; i++ ) {
       var review = {
         rating: randomNum(5,10) / 2,
         date: makeDate(),
@@ -76,12 +64,19 @@ var seeding = (size) => {
       product_reviews.push(review)
     }
     var product_overal_rating = ratings / product_reviews.length
-    createNewProduct(product_overal_rating.toFixed(1), product_reviews)
-    i++
-  }
+    createNewProduct(product_overal_rating.toFixed(1), product_reviews, id)
 }
 
-//
+var seedDb = (size) => {
+  if (!size) return
+  if (typeof(size) !== 'number') return
+  if (size < 1) return
+  for (var i = 1; i <= size; i++) {addFakeProductToDb(i)}
+}
+
+// invoke seedDb(num) num being the amount of fake products to create in db
+// seedDb(100)
+
 // reviews.find()
 // .then(data => console.log('data in db ->', data))
 // .catch(err => console.log('err  ->', err))
@@ -89,5 +84,4 @@ var seeding = (size) => {
 module.exports = {
   createNewProduct: createNewProduct,
   getReviewsForProductId: getReviewsForProductId
-
 }

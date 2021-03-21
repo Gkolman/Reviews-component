@@ -2,25 +2,26 @@ var express = require('express');
 var app = express();
 var port = 3000;
 var path = require('path');
-var router = express.Router()
 
 var helpers = require('./database.js')
 app.use(express.static(path.resolve(__dirname + '/client/dist')))
 
 app.get('/',(req,res) => {
   console.log('server connection is valid')
-  console.log('dirname in initial -> ', __dirname)
   res.sendFile(__dirname + '/client/dist/index.html')
 })
-
-app.get('/reviews', function (req, res) {
-  var id = req.query.id
+app.get('/bundle',(req,res) => {
+  console.log('server connection is valid')
+  res.sendFile(__dirname + '/client/dist/bundle.js')
+})
+app.get('/:id', function (req, res) {
+  console.log('id ->',req.params.id)
   res.sendFile(__dirname + '/client/dist/index.html')
 })
-app.post('/reviews', function (req, res) {
+app.post('/:id', function (req, res) {
   console.log('working for now')
-  var id = req.query.id
-  console.log('id ->,',id)
+  console.log()
+  var id = req.params.id
   helpers.getReviewsForProductId(id)
   .then( (data) => {
     console.log('data -> ', data)
@@ -32,7 +33,6 @@ app.post('/reviews', function (req, res) {
   })
 })
 app.listen(port, () => { console.log(`app is listening on port ${port}`)})
-
  module.exports = {
    app: app
  }

@@ -1,12 +1,8 @@
-import { json } from 'body-parser'
 import React from 'react'
 import HelpfullButton from './HelpfulButton.jsx'
 import createStars from './StarTemplate.js'
 
 var AllReviews = (props) => {
-
-  console.log('props now look like -> ', props.reviews)
-
   if (props.reviews.product_reviews) {
   var rating = props.reviews.product_overall_rating
   var reviews = props.reviews.product_reviews.map( (review,i) => {
@@ -23,20 +19,15 @@ var AllReviews = (props) => {
     )})
   } else {
     var reviews = <div> loading reviews </div>
-    var rating =  <div> loading rating </div>
-
+    var rating = 0
   }
-
   return (
       <div id = "allReviewsClass">
-       <h2 id="productRating" > overall Rating: {props.reviews.product_overall_rating}
-       {createStars(rating)}
-       </h2>
+       <h2 id="productRating" > overall Rating: {props.reviews.product_overall_rating} {createStars(rating)}</h2>
        <hr/>
        <button className="reviewButton"> write a review </button>
         <div id = "allReviews">{reviews}</div>
       </div>
     )
 }
-
 export default AllReviews

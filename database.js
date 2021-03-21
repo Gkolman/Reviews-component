@@ -11,10 +11,8 @@ const reviewsSchema = new mongoose.Schema({
   product_reviews: Array,
   custom_id: Number
 });
-
 const reviews = mongoose.model('reviews', reviewsSchema);
 var randomNum = (min, max) => { return Math.floor(Math.random() * (max - min)) + min }
-
 
 var getReviewsForProductId = (id) => {return reviews.find({custom_id: id})}
 

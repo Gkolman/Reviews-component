@@ -43,7 +43,7 @@
   color: #FDE16D;
   content: '\2605'; /* Full star in UTF8 */
   position: absolute;
-  width: 59%;
+  width: 60%;
   overflow: hidden;
   text-shadow: 0 0 2px rgba(0,0,0,0.7);
 }

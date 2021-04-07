@@ -11,6 +11,8 @@ class App extends React.Component {
     }
   }
   componentWillMount() {
+    console.log('url -> ', window.location.href)
+
     $.ajax({
       url: window.location.href,
       type: "POST",

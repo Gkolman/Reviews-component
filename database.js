@@ -1,11 +1,29 @@
 const mongoose = require('mongoose');
 var faker = require('faker');
-mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true, useUnifiedTopology: true});
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//   console.log('db connected!')
+// });
+
+require('dotenv').config();
+
+var pass = process.env.mongoPassword || 'no username'
+var user = process.env.mongoUsername || 'no password'
+var mongoAtlasUrl=`mongodb+srv://${user}:${pass}@cluster0.73bwo.mongodb.net/FEC?retryWrites=true&w=majority`
+// var mongoAtlasUrl=`mongodb+srv://${mongoUsername}:${mongoPassword}@cluster0.73bwo.mongodb.net/FEC?retryWrites=true&w=majority`
+// var mongoTemp=`mongodb+srv://gkolman17:Cl1pClop%40@cluster0.73bwo.mongodb.net/FEC?retryWrites=true&w=majority`
+// console.log('here ->', mongoAtlas)
+const DB_URI = "mongodb://mongo:27017/reviews-service"
+mongoose.connect(mongoAtlasUrl, {useNewUrlParser: true, useUnifiedTopology: true})
+.then(() => {
+console.log('docker db connected')
+})
+.catch((err) => {
+  console.log('docker db not connected ', err)
+})
+
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('db connected!')
-});
 const reviewsSchema = new mongoose.Schema({
   product_overall_rating: Number,
   product_reviews: Array,
@@ -13,7 +31,6 @@ const reviewsSchema = new mongoose.Schema({
 });
 const reviews = mongoose.model('reviews', reviewsSchema);
 var randomNum = (min, max) => { return Math.floor(Math.random() * (max - min)) + min }
-
 var getReviewsForProductId = (id) => {return reviews.find({custom_id: id})}
 
 // could be used later to add reviews to a id number
@@ -41,7 +58,7 @@ var createNewProduct = async (rating,allReviews, id) => {
     product_reviews: allReviews || [],
     custom_id: id
     });
-   await product.save(function (err) {if (err) return console.error(err)})
+  await product.save(function (err) {if (err) return console.error(err)})
 }
 
 
@@ -80,6 +97,8 @@ var seedDb = (size) => {
 // .catch(err => console.log('err  ->', err))
 
 module.exports = {
+  reviews: reviews,
   createNewProduct: createNewProduct,
-  getReviewsForProductId: getReviewsForProductId
+  getReviewsForProductId: getReviewsForProductId,
+  mongoose : mongoose
 }

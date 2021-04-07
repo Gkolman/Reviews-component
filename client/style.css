@@ -1,6 +1,19 @@
 .main {
-  padding: 5px 75px 15px 75px;
+  padding: 5px 90px 15px 90px;
   /* //top right bottom left */
+}
+
+body {
+  background-color: #f7f4f4;
+  letter-spacing: .03em;
+  text-rendering: geometricPrecision;
+  display: block;
+  /* @include font-maker(14px, 1.5, #303030); */
+  font-weight: 100;
+}
+
+#allReviews{
+ /* font-size: 500px; */
 }
 .star-icon {
   color: #ddd;
@@ -8,10 +21,30 @@
   left: 15;
   position: relative;
 }
+.smallFont{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-family: 'Thasadith', sans-serif;
+  font-size: 16px;
+  font-weight: lighter;
+}
+.author {
+  padding-top: 5px;
+  padding-bottom: 15px;
+}
+.review {
+  padding-top: 25px;
+}
+
+.mediumFont{
+  font-family: 'Thasadith', sans-serif;
+  font-size: 14px;
+  font-weight:bold;
+}
 .star-icon.small {
   color: #ddd;
   font-size: 20px;
-  /* left: 15; */
+  left: 0;
   display: inline-block;
   line-height: 1em;
   /* position: relative; */
@@ -49,6 +82,8 @@
 }
 .reviewButton {
   margin-top: 25px;
+  margin-bottom: 25px;
+
 }
 .smallStars {
   margin-top: 50px;

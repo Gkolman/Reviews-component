@@ -11,10 +11,10 @@ var AllReviews = (props) => {
       <div key={i}>
     {createStars(review.rating, true)}
         <div className="smallFont">  {review.date} </div>
-        <div className="mediumFont" > {review.headLine} </div>
+        <strong className="mediumFont" > {review.headLine} </strong>
         <div className="smallFont review"> {review.review}</div>
-        <div className="mediumFont author" > {review.author}</div>
-        <button> <HelpfullButton/> {review.helpFull} </button>
+        <strong className="mediumFont" > {review.author}</strong>
+        <div className="buttonContainer"><button className="helpfulButton">HELPFUL({review.helpFull})</button></div>
         <hr/>
       </div>
     )})
@@ -24,9 +24,12 @@ var AllReviews = (props) => {
   }
   return (
       <div id ="allReviews">
-        <div className="smallFont" id="productRating" > overall Rating {props.reviews.product_overall_rating} {createStars(rating)}</div>
+        <div className="smallFont" id="productRating" > Overall Rating
+        <span className="rating" > {props.reviews.product_overall_rating} {createStars(rating)} </span>
+        </div>
         <hr/>
-        <button className="reviewButton"> write a review </button>
+        <div className ="space"> </div>
+        <button className="reviewButton"> WRITE A REVIEW </button>
         <div id = "allReviews">{reviews}</div>
       </div>
     )

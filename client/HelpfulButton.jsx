@@ -3,7 +3,7 @@ import React from 'react';
 var HelpfulButton =  (props) => {
   return (
     <div>
-        <button> Helpful </button>
+        {/* <button> Helpful </button> */}
     </div>
   )
 }

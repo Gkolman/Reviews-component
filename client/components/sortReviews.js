@@ -20,7 +20,7 @@ var sortByDate = (reviews) => {
 }
 
 var sortReviews = (reviews, type) => {
-  var sortedReviews = reviews
+
   if (type === 'mostRecent') {reviews = sortByDate(reviews)}
   if (type === 'lowestRated') {reviews = reviews.sort((a,b) => a.rating-b.rating)}
   if (type === 'topRated') {reviews = reviews.sort((a,b) => b.rating-a.rating)}

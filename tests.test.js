@@ -87,3 +87,12 @@ describe('API supports Requests to /:id', function() {
     .catch(err => done(err))
   });
 });
+
+
+// test to make sure that the page is updating when the arrows are hit;
+
+// add helpful fucntionality;
+// test for helpful functionality;
+// test sorting algorithm;
+
+//

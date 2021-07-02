@@ -3,6 +3,12 @@
   /* //top right bottom left */
 }
 
+#gageRoot{
+  display: block;
+  clear: both;
+}
+
+
 body {
   background-color: #f7f4f4;
   letter-spacing: .03em;
@@ -76,11 +82,16 @@ body {
 .review {
   padding-top: 15px;
 }
-strong{
+/* .other{
   padding-top: 30px;
   padding-bottom: 30px;
   font-weight: bold !important;
   text-shadow: 900px;
+} */
+
+.img{
+
+  width: 100%;
 }
 
 .star-icon.small {
@@ -124,4 +135,37 @@ strong{
 }
 .smallStars {
   margin-top: 50px;
+}
+.sortButton{
+  float: right;
+}
+.sortButton:hover{
+  color:red;
+}
+.dropDownBoax {
+  float:right;
+  border:1px solid black;
+  box-sizing: border-box;
+  border-width: 1px;
+  border-radius: 2px;
+  width: 150px;
+  height: 100px;
+  text-align: center;
+  border-color: black;
+  transition: all 0.3s ease-out;
+}
+strong{
+  padding-top:10px;
+  display: inline-block;
+}
+.drpDwn:hover{
+  color: red;
+}
+.pageNumber{
+  float: right;
+  padding-left: 10px;
+}
+.pageNumber:hover{
+
+  color: red;
 }

@@ -1,5 +1,6 @@
 import React from 'react';
-import AllReviews from './AllReviews.jsx'
+import AllReviews from './components/AllReviews.jsx'
+import Footer from './components/footer/Footer.jsx'
 
 class App extends React.Component {
   constructor(props) {
@@ -7,18 +8,17 @@ class App extends React.Component {
     this.state = {
       currentUrl: window.location.href.slice(21),
       currentProductId: window.location.href.slice(33,36),
-      currentProduct: ''
+      currentProduct: null
     }
   }
   componentWillMount() {
     console.log('url -> ', window.location.href)
-
     $.ajax({
       url: window.location.href,
       type: "POST",
       data: 'working',
       success: (data) =>  {
-        console.log('data from request -> ', data)
+        console.log('data from request -> ', data[0])
         if (data[0]) {
           this.setState({currentProduct: data[0]})
         }
@@ -28,9 +28,11 @@ class App extends React.Component {
   }
   render() {
     return (
-    <div className ="main">
-      <h2>Reviews </h2>
-      <AllReviews reviews={this.state.currentProduct}/>
+    <div>
+      <div className ="main">
+        <AllReviews  reviews={this.state.currentProduct}/>
+      </div>
+      <Footer/>
     </div>
     )
   }

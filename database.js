@@ -1,26 +1,17 @@
 const mongoose = require('mongoose');
 var faker = require('faker');
-// mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true, useUnifiedTopology: true});
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function() {
-//   console.log('db connected!')
-// });
-
 require('dotenv').config();
 
 var pass = process.env.mongoPassword || 'no username'
 var user = process.env.mongoUsername || 'no password'
 var mongoAtlasUrl=`mongodb+srv://${user}:${pass}@cluster0.73bwo.mongodb.net/FEC?retryWrites=true&w=majority`
-// var mongoAtlasUrl=`mongodb+srv://${mongoUsername}:${mongoPassword}@cluster0.73bwo.mongodb.net/FEC?retryWrites=true&w=majority`
-// var mongoTemp=`mongodb+srv://gkolman17:Cl1pClop%40@cluster0.73bwo.mongodb.net/FEC?retryWrites=true&w=majority`
-// console.log('here ->', mongoAtlas)
-const DB_URI = "mongodb://mongo:27017/reviews-service"
-mongoose.connect(mongoAtlasUrl, {useNewUrlParser: true, useUnifiedTopology: true})
+const DB_URI = "mongodb://127.0.0.1:27017/reviews-service"
+mongoose.connect(DB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
-console.log('docker db connected')
+console.log('mongo db connected')
 })
 .catch((err) => {
-  console.log('docker db not connected ', err)
+  console.log('mongo db not connected ', err)
 })
 
 const db = mongoose.connection;
@@ -32,16 +23,6 @@ const reviewsSchema = new mongoose.Schema({
 const reviews = mongoose.model('reviews', reviewsSchema);
 var randomNum = (min, max) => { return Math.floor(Math.random() * (max - min)) + min }
 var getReviewsForProductId = (id) => {return reviews.find({custom_id: id})}
-
-// could be used later to add reviews to a id number
-// var addReviewToProductId = (review,id) => {
-//   getReviewsForProductId(id)
-//   .then(data => {
-//     data[0].product_reviews.push(review)
-//     data[0].save()
-//     .then(data => console.log('working'))
-//   })
-// }
 
 var makeDate = () => {
   var months = ['Dec', 'Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov']
@@ -60,7 +41,6 @@ var createNewProduct = async (rating,allReviews, id) => {
     });
   await product.save(function (err) {if (err) return console.error(err)})
 }
-
 
 var addFakeProductToDb = (id) => {
     var product_reviews = []
@@ -81,13 +61,21 @@ var addFakeProductToDb = (id) => {
     var product_overal_rating = ratings / product_reviews.length
     createNewProduct(product_overal_rating.toFixed(1), product_reviews, id)
 }
-
 var seedDb = (size) => {
   if (!size) return
   if (typeof(size) !== 'number') return
   if (size < 1) return
   for (var i = 1; i <= size; i++) {addFakeProductToDb(i)}
 }
+
+getReviewsForProductId(1)
+.then((reviews) => {
+  if (!reviews[0]) {seedDb()}
+})
+.catch((error) => {console.log('could not get reviews for id ->', error)})
+
+// seedDb(100)
+
 
 // invoke seedDb(num) num being the amount of fake products to create in db
 // seedDb(100)

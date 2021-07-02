@@ -24,11 +24,16 @@ module.exports = {
             presets: ['@babel/preset-react', '@babel/preset-env']
           }
         }]
+
       },
       {
         test: /\.css$/i,
         exclude: /node_modules/ && /dist/,
         use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
     ],
   },

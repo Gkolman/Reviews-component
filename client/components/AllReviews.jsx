@@ -19,7 +19,7 @@ class AllReviews extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps !== this.props) {
       if (this.props.reviews) {
-        console.log('this.state.pageNumber -> ', this.state.pageNumber)
+        // console.log('this.state.pageNumber -> ', this.state.pageNumber)
         this.setState({rating : this.props.reviews.product_overall_rating})
         this.setState({Reviews : this.props.reviews.product_reviews})
         var reviews = sortReviews(this.props.reviews.product_reviews)
@@ -28,7 +28,7 @@ class AllReviews extends React.Component {
           if (!reviews[i+1]) {pairedReviews.push(reviews[i])}
           else {pairedReviews.push([reviews[i], reviews[i+1]])}
         }
-        console.log('paired reviews ->', pairedReviews)
+        // console.log('paired reviews ->', pairedReviews)
         this.setState({allReviews : pairedReviews[0]})
         this.setState({pairedReviews : pairedReviews})
       } else {
@@ -66,10 +66,11 @@ class AllReviews extends React.Component {
   render() {
     return (
       <div id ="allReviews">
+        <strong className ="mediumFont"> Reviews </strong>
         <div className="smallFont" id="productRating" > Overall Rating
-        <span className="rating" > {this.state.rating} {createStars(this.state.rating)}
-        <SortButton sortReviews={this.changeOrderType.bind(this)}/>
-        </span>
+          <span id="totalRating" className="rating" >{this.state.rating}{createStars(this.state.rating)}
+          <SortButton sortReviews={this.changeOrderType.bind(this)}/>
+          </span>
         </div>
         <hr/>
         <div className ="space"> </div>

@@ -6,72 +6,82 @@ import Adapter from 'enzyme-adapter-react-16';
 import {render, fireEvent, cleanup} from '@testing-library/react';
 import request from 'supertest'
 // LOCAL IMPORTS
-import App from './client/App.jsx'
-import AllReviews from './client/AllReviews.jsx'
-// import server from './server.js'
+import AllReviews from './client/components/AllReviews.jsx'
+import ReviewPages from './client/components/ReviewsPages.jsx'
+const server = require('./serverEndPoints.js').app
 
-var server = require('./server.js').app
+import toJson from 'enzyme-to-json'; //added this line
 
 afterEach(cleanup)
-
-
-Enzyme.configure({ adapter: new Adapter() })
-// configure({ adapter: new Adapter() });
+Enzyme.configure({adapter: new Adapter()})
 
 describe("AllReviews", () => {
   var reviews = {
-    product_reviews: [
- {author: "Adalberto.Langosh", rating: 3, review: "Sed laboriosam ut quis perspiciatis. Quos officiis…olores et ut eos. Itaque aut ut atque soluta non."},
- {author: "Candido.Schumm85", rating: 4.5, review: "Quidem alias id sapiente. Earum odit deserunt dolo…caecati. Voluptatibus qui alias delectus et odit."},
+    product_reviews:
+    [
+      {author: "batman",rating: 3,review:"test review 1",
+        date : "08 Sep 2018",helpFull: 21,headLine: "product is okay"
+      },
+      {
+        author: "batman",rating: 4.5,review:"test review 2",
+        date : "04 Dec 20202",helpFull: 21,headLine: "great product!"
+      },
     ],
-    product_overall_rating: 3.7
+      product_overall_rating: 3.7
     }
-    const root = document.createElement("div")
-    ReactDOM.render(<AllReviews reviews = {reviews}/>, root)
- it("dynamically renders productRating through passed in props from App component", () => {
-  var actualProductRating = root.querySelector("#productRating").textContent
-  var expectedProductRating = " overall Rating: 3.7☆☆☆☆☆"
-  expect(expectedProductRating).toEqual(actualProductRating)
- });
+    // create a div and mount component with provided props in top level for testing
+    let allReivewsNode = document.createElement('div');
+    // for some reason rendering once wasnt working
+    ReactDOM.render(<AllReviews reviews={reviews} />, allReivewsNode);
+    ReactDOM.render(<AllReviews reviews={reviews} />, allReivewsNode);
 
- it ("dynamically renders all reviews through passed in props from App component", () => {
-  var actualReviews = root.querySelector("#allReviews").textContent
-  var expectedReviews = " Rating: 3  date  Review: Sed laboriosam ut quis perspiciatis. Quos officiis…olores et ut eos. Itaque aut ut atque soluta non. Name : Adalberto.Langosh Helpful  Rating: 4.5  date  Review: Quidem alias id sapiente. Earum odit deserunt dolo…caecati. Voluptatibus qui alias delectus et odit. Name : Candido.Schumm85 Helpful  Rating: 4.5  date  Review: Ut rerum aspernatur. Quod porro et ipsum at sit. Reiciendis autem repellat adipisci. Name : Katrine75 Helpful "
-  expect(expectedReviews).toEqual(actualReviews)
- })
+  it("dynamically renders productRating through passed in props from App component", () => {
+
+    // spyOn(instance, 'someFunction');
+    var actualProductRating = allReivewsNode.querySelector("#productRating").textContent
+    var expectedProductRating = " Overall Rating3.7☆☆☆☆☆Sort By"
+    expect(actualProductRating).toEqual(expectedProductRating)
+  });
+
+  it ("dynamically renders all reviews through passed in props from App component", () => {
+    let reviewPagesNode = document.createElement('div');
+  ReactDOM.render(<ReviewPages reviews={reviews.product_reviews}/>, reviewPagesNode);
+  var allReviews = allReivewsNode.querySelector("#allReviews").textContent
+  // slices the 'review' partthe reviews element
+  var actualReview1 = allReviews.slice(76, 91)
+  var expectedReview1 = 'product is okay'
+  var actualReview2 = allReviews.slice(145, 159)
+  var expectedReview2 = 'great product!'
+  expect(actualReview1).toEqual(expectedReview1)
+  expect(actualReview2).toEqual(expectedReview2)
+  })
 });
 
-describe('API supports Requests to /reviews/', function() {
-  it('api responds with a render(index.html) method and status 200 ', function(done) {
+describe('API supports Requests to /:id', function() {
+  it('api responds with index.html and status 200 ', function(done) {
     request(server)
-      .get('/reviews')
+      .get('/')
       .set('Accept', 'application/json')
       .expect('Content-Type', "text/html; charset=UTF-8")
       .expect(200, done)
   });
-  it('api responds with a render(index.html) method and status 200 when an id is added to URL via query params', function(done) {
+  it('api handles get request to id vid /:id', function(done) {
     request(server)
-      .get('/reviews?id=1')
+      .get('/1')
       .set('Accept', 'application/json')
       .expect('Content-Type', "text/html; charset=UTF-8")
       .expect(200, done)
   });
-  it('post request to /reviews?id=1 shoul respond with json and a 200 status', function(done) {
+  it('api handles post request to id vid /:id and responsd with db data', function(done) {
     request(server)
-      .post('/reviews?id=1')
-      .send({name: 'john'})
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
+      .post('/1')
+      // .set('Accept', 'application/json')
+      .expect('Content-Type', "application/json; charset=utf-8")
       .expect(200)
       .then(response => {
-        // console.log('response -> ', JSON.parse(response.text))
         var responseData = JSON.parse(response.text)
-        // console.log('reviews -> ', responseData[0].product_reviews)
-        console.log('rating -> ', responseData[0].product_overall_rating)
-        expect(responseData[0].product_overall_rating).toEqual(3.7)
-
+        expect(responseData[0].product_overall_rating).toEqual(4)
         // assert(response.body.email, 'foo@bar.com')
-
         done();
       })
     .catch(err => done(err))

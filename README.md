@@ -1,7 +1,12 @@
 # Reviews Component
 
 ### Description:
-                Designed reviews micro-service for a service oriented full stack application. Reviews are paginated dynamically using react and are filterable based on user preference. Data is stored in mongoDb and is pulled through an api built using express that targets specific product data via url query parameters. Code Is transpiled via Webpack and Babel then bundled and can be requested via a url. End to end testing has been achieved through using mocha/chai, Jest, and enzyme for the front end and SuperTest  for the back-end API. Containerized with Docker for easy deployment and distributed testing.
+    Designed reviews micro-service for a service oriented full stack application. Reviews are paginated
+    dynamically using react and are filterable based on user preference. Data is stored in mongoDb and is pulled
+    through an api built using express that targets specific product data via url query parameters. Code Is
+    transpiled via Webpack and Babel then bundled and can be requested via a url. End to end testing has been
+    achieved through using mocha/chai, Jest, and enzyme for the front end and SuperTest  for the back-end API.
+    Containerized with Docker for easy deployment and distributed testing.
 
 
 ### Tools used:

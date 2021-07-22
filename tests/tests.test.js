@@ -1,16 +1,23 @@
 // DEV IMPORTS
-import React from 'react'
-import ReactDOM from 'react-dom'
-import Enzyme, { shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import {render, fireEvent, cleanup} from '@testing-library/react';
-import request from 'supertest'
-// LOCAL IMPORTS
-import AllReviews from './client/components/AllReviews.jsx'
-import ReviewPages from './client/components/ReviewsPages.jsx'
-const server = require('./serverEndPoints.js').app
+// import React from 'react'
+// import ReactDOM from 'react-dom'
+// import Enzyme, { shallow, mount } from 'enzyme';
+// import Adapter from 'enzyme-adapter-react-16';
+// import {render, fireEvent, cleanup} from '@testing-library/react';
+// import request from 'supertest'
+// // LOCAL IMPORTS
+// import AllReviews from '../client/components/AllReviews.jsx'
+// import ReviewPages from '../client/components/ReviewsPages.jsx'
+// import { act } from "react-dom/test-utils";
+// require('index.html');
 
-import toJson from 'enzyme-to-json'; //added this line
+var AllReviews = require('../client/components/AllReviews.jsx')
+
+const server = require('../serverEndPoints.js').app
+
+console.log('react -> ', react)
+
+// import toJson from 'enzyme-to-json'; //added this line
 
 afterEach(cleanup)
 Enzyme.configure({adapter: new Adapter()})
@@ -32,15 +39,18 @@ describe("AllReviews", () => {
     // create a div and mount component with provided props in top level for testing
     let allReivewsNode = document.createElement('div');
     // for some reason rendering once wasnt working
-    ReactDOM.render(<AllReviews reviews={reviews} />, allReivewsNode);
-    ReactDOM.render(<AllReviews reviews={reviews} />, allReivewsNode);
 
   it("dynamically renders productRating through passed in props from App component", () => {
 
-    // spyOn(instance, 'someFunction');
-    var actualProductRating = allReivewsNode.querySelector("#productRating").textContent
-    var expectedProductRating = " Overall Rating3.7☆☆☆☆☆Sort By"
-    expect(actualProductRating).toEqual(expectedProductRating)
+    act(() => {
+      let allReivewsNode = document.createElement('div');
+      ReactDOM.render(<AllReviews reviews={reviews}/>, allReivewsNode);
+      // ReactDOM.render(<AllReviews reviews={reviews}/>, allReivewsNode);
+      // spyOn(instance, 'someFunction');
+      var actualProductRating = allReivewsNode.querySelector("#productRating").textContent
+      var expectedProductRating = " Overall Rating3.7☆☆☆☆☆Sort By"
+      expect(actualProductRating).toEqual(expectedProductRating)
+    });
   });
 
   it ("dynamically renders all reviews through passed in props from App component", () => {

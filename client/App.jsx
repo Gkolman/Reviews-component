@@ -32,7 +32,7 @@ class App extends React.Component {
       <div className ="main">
         <AllReviews  reviews={this.state.currentProduct}/>
       </div>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
     )
   }

@@ -66,7 +66,10 @@ class AllReviews extends React.Component {
   render() {
     return (
       <div id ="allReviews">
-        <strong className ="mediumFont"> Reviews </strong>
+        <strong className ="mediumFont" style={{
+            fontFamily: ' "Times New Roman", "Times", "serif"',
+            fontSize: '35px'
+        }} > Reviews </strong>
         <div className="smallFont" id="productRating" > Overall Rating
           <span id="totalRating" className="rating" >{this.state.rating}{createStars(this.state.rating)}
           <SortButton sortReviews={this.changeOrderType.bind(this)}/>

@@ -13,10 +13,13 @@
 
 #### Front-end:
     React-hooks, CSS
+
 #### Back-end:
     MongoDb, Mongoose, Express
+
 #### Testing:
     Jest, Enzyme, SuperTest, Mocha/Chai
+
 #### Dev-tools:
     Webpack, Docker, Babel, Javascript
 
